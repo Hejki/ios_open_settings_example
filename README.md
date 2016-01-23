@@ -6,28 +6,28 @@ Here is instructions how to open specific system settings page from your iOS app
 * In XCode open project settings: Targets - ApplicationTarget - Info - URL Types
 ![URL Types settings](https://dl.dropboxusercontent.com/u/16535698/tumblr/ios_settings/url_types.png)
 * Or add `CFBundleURLTypes` key to application's `info.plist`
-
-        <key>CFBundleURLTypes</key>
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLSchemes</key>
         <array>
-            <dict>
-                <key>CFBundleTypeRole</key>
-                <string>Editor</string>
-                <key>CFBundleURLSchemes</key>
-                <array>
-                    <string>prefs</string>
-                </array>
-            </dict>
+            <string>prefs</string>
         </array>
-        
+    </dict>
+</array>
+```        
 * Now you can use `UIApplication.sharedApplication().openURL(url)` to open desired setting page
-
-        let app = UIApplication.sharedApplication()
-        let url = NSURL(string: "prefs:root=General&path=About")!
-        
-        if app.canOpenURL(url) {
-            app.openURL(url)
-        }
-        
+```swift
+let app = UIApplication.sharedApplication()
+let url = NSURL(string: "prefs:root=General&path=About")!
+ 
+if app.canOpenURL(url) {
+    app.openURL(url)
+}
+```
 * For available URLs check Links section below
 * You can use URL string `UIApplicationOpenSettingsURLString` to open current application settings if application has any
 
